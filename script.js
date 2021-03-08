@@ -13,8 +13,8 @@ function pageInit(){
 
 
         row.append("<div class='col-2 text-right time-col'></div>")
-        row.append("<input class='col-8 border-0 event-col'>")
-        row.append("<div class='col-2 save-col bg-primary'></div>")
+        row.append("<input class='col-8 border-0 event-col' id=input" + i + ">")
+        row.append("<div class='col-2 save-col bg-primary' data-row=" +i+ " ></div>")
         
         row.children().eq(0).text(times[i])
 
@@ -31,9 +31,25 @@ function pageInit(){
             row.children(".event-col").css("background-color","#00ff00")
         }
 
+        var lsCurrentRow = localStorage.getItem(i)
+        console.log(typeof lsCurrentRow)
+        console.log(lsCurrentRow)
+        if (typeof lsCurrentRow != "string") {
+            console.log("not a string!")
+        }
+
+        row.on('click', '.save-col', function(event) {
+            // localStorage.setItem(row.attr("data-hour"), input.val());
+            var whichRow = event.target.getAttribute("data-row")
+            var thisInput = document.getElementById("input" + whichRow)
+            console.log(thisInput)
+            localStorage.setItem(whichRow, thisInput.value)  
+        })
+
         container.append(row)
 
     }
 }
+
 
 pageInit()
