@@ -14,28 +14,28 @@ function pageInit(){
 
         row.append("<div class='col-2 text-right time-col'></div>")
         row.append("<input class='col-8 border-0 event-col' id=input" + i + ">")
-        row.append("<div class='col-2 save-col bg-primary' data-row=" +i+ " ></div>")
+        row.append("<div class='col-2 save-col saveBtn d-flex justify-content-center align-items-center' data-row=" +i+ " ></div>")
         
         row.children().eq(0).text(times[i])
 
-        row.children().eq(2).append("<i class='fas fa-save'></i>")
+        row.children().eq(2).append("<i class='fas fa-save' width='40px'></i>")
 
-        console.log(row.attr("data-hour"))
-        console.log(moment().format("H"))
 
         if (row.attr("data-hour") < moment().format("H")) {
-            row.children(".event-col").css("background-color","#bfbfbf")
+            row.children(".event-col").addClass("past")
         } else if (row.attr("data-hour") == moment().format("H")) {
-            row.children(".event-col").css("background-color","#ff0000")
+            row.children(".event-col").addClass("present")
         } else if (row.attr("data-hour") > moment().format("H"))  {
-            row.children(".event-col").css("background-color","#00ff00")
+            row.children(".event-col").addClass("future")
         }
 
         var lsCurrentRow = localStorage.getItem(i)
         console.log(typeof lsCurrentRow)
         console.log(lsCurrentRow)
         if (typeof lsCurrentRow != "string") {
-            console.log("not a string!")
+        } else {
+            console.log("this is a string in theory")
+            row.children().eq(1).attr("value",lsCurrentRow)
         }
 
         row.on('click', '.save-col', function(event) {
