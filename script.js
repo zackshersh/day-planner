@@ -21,7 +21,7 @@ function pageInit(){
         row.children().eq(2).append("<i class='fas fa-save' width='40px'></i>")
 
 
-        if (row.attr("data-hour") < moment().format("H")) {
+        if (row.attr("data-hour") < moment().format("H") || row.attr("id") == "row0") {
             row.children(".event-col").addClass("past")
         } else if (row.attr("data-hour") == moment().format("H")) {
             row.children(".event-col").addClass("present")
